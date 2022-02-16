@@ -1,0 +1,199 @@
+
+menu.programmer=Upload programmer
+menu.usb=USB Type
+
+##############################################################
+
+xa4u.name=X-A4U USB stick
+
+xa4u.build.board=XMEGA_XA4U
+xa4u.build.mcu=atxmega128a4u
+xa4u.build.f_cpu=32000000L
+xa4u.build.core=xmega
+xa4u.build.variant=xa4u
+xa4u.build.usbtype=USB_SERIAL
+
+xa4u.upload.tool=dfu_programmer
+#xa4u.upload.tool=avrdude
+xa4u.upload.protocol=flip2
+xa4u.upload.speed=115200
+xa4u.upload.maximum_size=131072
+
+xa4u.menu.usb.serial=Serial
+xa4u.menu.usb.serial.build.usbtype=USB_SERIAL
+xa4u.menu.usb.none=No USB
+xa4u.menu.usb.none.build.usbtype=USB_NONE
+
+##############################################################
+
+mattaira4u.name=MattairTech 128A4U breakout
+
+mattaira4u.build.board=XMEGA_MATTAIR_128A4U
+mattaira4u.build.mcu=atxmega128a4u
+mattaira4u.build.f_cpu=32000000L
+mattaira4u.build.core=xmega
+mattaira4u.build.variant=mattaira4u
+mattaira4u.build.usbtype=USB_NONE
+#mattaira4u.build.usbtype=USB_SERIAL
+
+mattaira4u.upload.tool=dfu_programmer
+#mattaira4u.upload.tool=avrdude
+mattaira4u.upload.protocol=flip2
+mattaira4u.upload.speed=115200
+mattaira4u.upload.maximum_size=131072
+
+mattaira4u.menu.usb.serial=Serial
+mattaira4u.menu.usb.serial.build.usbtype=USB_NONE
+#mattaira4u.menu.usb.serial.build.usbtype=USB_SERIAL
+mattaira4u.menu.usb.none=No USB
+mattaira4u.menu.usb.none.build.usbtype=USB_NONE
+##############################################################
+
+api.name=Apitronics Bee
+
+api.build.board=XMEGA_APITRONICS_BEE
+api.build.mcu=atxmega128a3
+api.build.f_cpu=32000000L
+api.build.core=xmega
+api.build.variant=api
+api.build.usbtype=USB_NONE
+
+api.upload.tool=avrdude
+api.upload.protocol=avr109
+api.upload.speed=115200
+api.upload.maximum_size=131072
+
+#############################################################
+
+sfe.name=SparkFun Xmega100
+sfe.verbose=true
+
+sfe.build.board=XMEGA_SPARKFUN_X100
+sfe.build.mcu=atxmega128a1
+sfe.build.f_cpu=32000000L
+sfe.build.core=xmega
+sfe.build.variant=sfe
+sfe.build.usbtype=USB_NONE
+
+sfe.upload.tool=avrdude
+sfe.upload.maximum_size=131072
+
+# FUSE BITS
+# fuse0: JTAGUSERID
+# fuse1: WDWP=0xF WDP=0xF
+# fuse2: Boot Loader Reset
+# fuse4: JTAGEN
+# fuse5: BODLVL=2.1V
+sfe.bootloader.tool=avrdude
+sfe.bootloader.fuse0=0xFF
+sfe.bootloader.fuse1=0xFF
+#sfe.bootloader.fuse2=0xBF
+sfe.bootloader.fuse2=0xFF
+sfe.bootloader.fuse4=0xFE
+sfe.bootloader.fuse5=0xFD
+sfe.bootloader.unlock_bits=0x3F
+sfe.bootloader.lock_bits=0x3F
+sfe.bootloader.file=sfe_xmega100/ATmegaBOOT_sfe.bin
+
+## SparkFun w/ JTAG
+## -------------------------
+sfe.menu.programmer.jtag=JTAG
+sfe.menu.programmer.jtag.upload.using=dragonjtag
+
+## SparkFun w/ PDI
+## -------------------------
+sfe.menu.programmer.pdi=PDI
+sfe.menu.programmer.pdi.upload.using=avrisppdi
+
+#############################################################
+
+xplain.name=XPlain
+
+xplain.build.board=XMEGA_XPLAIN
+xplain.build.mcu=atxmega128a1
+xplain.build.f_cpu=32000000L
+xplain.build.core=xmega
+xplain.build.variant=xplain
+xplain.build.usbtype=USB_NONE
+
+xplain.upload.tool=avrdude
+xplain.upload.maximum_size=131072
+
+# FUSE BITS
+# fuse0: JTAGUSERID
+# fuse1: WDWP=0xF WDP=0xF
+# fuse2: Boot Loader Reset
+# fuse4: JTAGEN
+# fuse5: BODLVL=2.1V
+xplain.bootloader.tool=avrdude
+xplain.bootloader.fuse0=0xFF
+xplain.bootloader.fuse1=0xFF
+xplain.bootloader.fuse2=0xBF
+xplain.bootloader.fuse4=0xFE
+xplain.bootloader.fuse5=0xFD
+xplain.bootloader.unlock_bits=0x3F
+xplain.bootloader.lock_bits=0x3F
+xplain.bootloader.file=xplain/ATmegaBOOT_xplain.bin
+
+## XPlain w/ JTAG
+## -------------------------
+xplain.menu.programmer.jtag=JTAG
+xplain.menu.programmer.jtag.upload.using=dragonjtag
+
+## XPlain w/ Lufa
+## -------------------------
+xplain.menu.programmer.lufa=Lufa
+xplain.menu.programmer.lufa.upload.using=avrispmkii
+xplain.menu.programmer.lufa.upload.protocol=arduino
+xplain.menu.programmer.lufa.upload.speed=9600
+
+## XPlain w/ Usb
+## -------------------------
+xplain.menu.programmer.usb=Usb
+xplain.menu.programmer.usb.upload.protocol=arduino
+xplain.menu.programmer.usb.upload.speed=9600
+
+## XPlain w/ Serial
+## -------------------------
+xplain.menu.programmer.serial=Serial
+xplain.menu.programmer.serial.upload.protocol=arduino
+xplain.menu.programmer.serial.upload.speed=57600
+
+## XPlain w/ Pdi
+## -------------------------
+xplain.menu.programmer.pdi=PDI
+xplain.menu.programmer.pdi.using=avrisppdi
+
+##############################################################
+
+akafuino.name=Akafuino X
+
+akafuino.build.board=XMEGA_AKAFUINO_X
+akafuino.build.mcu=atxmega32a4
+akafuino.build.f_cpu=32000000L
+akafuino.build.core=xmega
+akafuino.build.variant=akafuino
+akafuino.build.usbtype=USB_NONE
+
+akafuino.upload.tool=avrdude
+akafuino.upload.protocol=avr109
+akafuino.upload.maximum_size=32768
+akafuino.upload.speed=115200
+akafuino.upload.use_1200bps_touch=true
+
+akafuino.bootloader.tool=avrdude
+akafuino.bootloader.file=akafuino/akafuino-boot.hex
+#akafuino.bootloader.unlock_bits=0x3F
+#akafuino.bootloader.lock_bits=0x3F
+
+# FUSE BITS
+# fuse0: JTAGUSERID
+# fuse1: WDWP=0xF WDP=0xF
+# fuse2: Boot Loader Reset
+# fuse4: JTAGEN
+# fuse5: BODLVL=2.1V
+#akafuino.bootloader.fuse0=0xFF
+#akafuino.bootloader.fuse1=0xFF
+akafuino.bootloader.fuse2=0xBF
+#akafuino.bootloader.fuse4=0xFE
+akafuino.bootloader.fuse5=0xFD
