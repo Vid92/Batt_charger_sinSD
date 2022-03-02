@@ -23,7 +23,6 @@ extern bool flag;
 extern bool flagcompar;
 extern bool flagConfig;
 extern bool flagATZ;
-extern float TempTime1;
 
 void comms_inicbuff(void);        // Borra buffer
 int comms_addcbuff(char c);       // añade carácter recibido al buffer

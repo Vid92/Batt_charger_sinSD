@@ -31,9 +31,9 @@ extern char frag_ip[17]; //variable de almacenamiento para ip
 extern char frag_mk[17]; //variable de almacenamiento para mask
 extern char frag_gt[17]; //variable de almacenamiento para gateway
 
-extern char rgt[3]; //variable almacenamiento
-extern char vartmp[3]; //variable de almacenamiento auxiliar
-extern char lett_final[2];//variable de almacenamiento para identificar minutos o seg
+//extern char rgt[3]; //variable almacenamiento
+//extern char vartmp[3]; //variable de almacenamiento auxiliar
+//extern char lett_final[2];//variable de almacenamiento para identificar minutos o seg
 
 extern bool flagload;
 //extern int disk1;

@@ -10,7 +10,7 @@ void Program::runStep(){  //inicia proceso
   state0 = 1;
   //flagCapt = false;
   control.control_cbuff("R");
-  //*digitalWrite(LED_BUILTIN, HIGH); //E1
+  digitalWrite(LED_BUILTIN, HIGH); //E1
   Debug4.println(F("Run"));
   Ttime=0;
   if((type[count][0]) == 'E'){

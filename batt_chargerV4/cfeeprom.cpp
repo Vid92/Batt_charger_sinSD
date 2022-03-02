@@ -35,15 +35,6 @@ void eepromsave(unsigned int address, byte data){ //comparacion CR1 CR2 enviado
 }
 
 void ipFileName(){
-  //char frag_ip[17]; //variable de almacenamiento para ip
-  //char frag_mk[17]; //variable de almacenamiento para mask
-  //char frag_gt[17]; //variable de almacenamiento para gateway
-
-  //memset(frag_ip,0,sizeof(frag_ip));
-  //memset(frag_mk,0,sizeof(frag_mk));
-  //memset(frag_gt,0,sizeof(frag_gt));
-  //memset(ipName,0,sizeof(ipName));
-
   memset(frag_ip,0,17);
   memset(frag_mk,0,17);
   memset(frag_gt,0,17);
@@ -108,7 +99,6 @@ void ipFileName(){
       an++;
     }
   }
-  //return ipName;
 }
 
 void jsonSave(char* temp){
@@ -123,11 +113,7 @@ void jsonSave(char* temp){
   float totalAH = 0.0;
   float totalDuration = 0.0;
 
-  memset(rgt,0,3);
-  memset(vartmp,0,3);
-  memset(lett_final,0,2);
-
-  for(int x=0; x<5;x++){
+  for(int x=1; x<6;x++){
       memset(var_tmp,0,2);
       sprintf(var_tmp,"%c",temp[x]);
       strcat(nameProg,var_tmp);
@@ -155,21 +141,6 @@ void jsonSave(char* temp){
 
           case 'E':
           type0 = "End";
-          for (int x=i+8;x++;){
-            if(temp[x]==0x4D || temp[x] == 0x53){
-              if(temp[x]==0x4D)
-                strcat(lett_final,"M");
-              else
-                strcat(lett_final,"S");
-              break;
-            }
-            sprintf(vartmp,"%c",temp[x]);
-            strcat(rgt,vartmp);
-          }
-          //hacer converciones para capturar dato cada 
-          regT = atoi(rgt);
-          Debug4.println(regT);
-          Debug4.println(lett_final);
           break;
           default:break;
         }

@@ -9,7 +9,6 @@
 extern Control control;
 extern int count;
 extern char* letter; //chars
-//extern bool flagCapt;
 
 class Program
 {

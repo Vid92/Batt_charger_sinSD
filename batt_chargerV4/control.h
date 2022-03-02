@@ -15,7 +15,6 @@ extern unsigned long Ttime;
 extern char stepState[2];
 extern float valAH;
 extern float totAH;
-extern bool flagCapt;
 
 class Control
 {

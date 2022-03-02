@@ -46,7 +46,6 @@ void Control::setTemperature(float maxTemp,float minTemp){
 //----------------------------- Control-Run ------------------------------------//
 void Control::run() {
   this->state = 1;
-  flagCapt = false;
   digitalWrite(LedRelay, HIGH);
   if((this->prevstate == 0 || this->prevstate == 3 || this->prevstate == 4 || this->prevstate == 1) && this->state == 1){
     control_cbuff("R");
@@ -125,6 +124,7 @@ void Control::readData(){
 
   this->valcurrent0 = this->averageCurrent - 70.0; //36
   valcurrent = this->valcurrent0 * 35.0 / 1023.0;
+  //valcurrent = this->valcurrent0 * 300.0 / 1023.0;
 
   valAH = valcurrent * 0.000277 * controlTime.ms() * 0.001;
 
@@ -166,7 +166,7 @@ void Control::event() {
               dac.write(this->valrampa);
               vTaskDelay(1);
              //------------------------- current Warning -------------------------//
-             /*if(controlTime.ms() > this->time1 && controlTime.ms() > this->t2)//toma una muestra cada 1.2s
+             if(controlTime.ms() > this->time1 && controlTime.ms() > this->t2)//toma una muestra cada 1.2s
              {
                 Debug4.println(F("save0"));
                 this->time1 = this->time1 + this->time2;
@@ -199,7 +199,7 @@ void Control::event() {
                  this->flagS = true;
                  //Debug4.print(F("ElseTime:"));
                }
-             }*/
+             }
              //-------------------------- control temp -----------------------//
              //else if(this->maxTemp!=0){
              if(this->maxTemp!=0){
@@ -254,7 +254,7 @@ void Control::event() {
              vTaskDelay(1);
 
              //---------------------- current Warning ------------------------//
-             /*if(controlTime.ms() > this->time1 && controlTime.ms() > this->t2)
+             if(controlTime.ms() > this->time1 && controlTime.ms() > this->t2)
              {
                Debug4.print(F("save1"));
                this->time1 = this->time1 + this->time2;
@@ -286,7 +286,7 @@ void Control::event() {
                else if(controlTime.ms() > this->t1 && this->flagO != false){
                  this->flagS = true;
                }
-             }*/
+             }
 
              //------------------------- control Temp -------------------------//
              if(this->maxTemp!=0){
@@ -364,7 +364,6 @@ void Control::event() {
     }
     else{
       this->state = 0;
-      flagCapt = true;
       control_cbuff("S");
       digitalWrite(LedRelay, LOW);
       digitalWrite(LED_BUILTIN, LOW);

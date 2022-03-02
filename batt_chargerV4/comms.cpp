@@ -56,7 +56,7 @@ int dato = 0;
 int lenbff = 0;
 int xbuff=0x00;      // Índice: siguiente char en cbuff
 
-//float TempTime1 = 0; // aux AH acumulado
+float TempTime1 = 0; // aux AH acumulado
 float totAH = 0.0;   //variable acum.AH
 float totalTime;
 
@@ -146,12 +146,14 @@ void restartAT(){
     {//+ok
       comms_inicbuff();
       Serial.print("AT+Z\r\n");
+      Debug4.println("ATZ");
     }
   if(cbuff[0]==0x0D&&cbuff[1]==0x0A&&cbuff[2]==0x2B&&cbuff[3]==0x4F&&cbuff[4]==0x4B&&cbuff[5]==0x0D&&cbuff[6]==0x0A)
     { //+OK=
       comms_inicbuff();
       closeAt();
       flagATZ = true;
+      Debug4.println("ATOK");
     }
 }
 
@@ -335,17 +337,11 @@ void comms_procesa_comando(void){
               doCrc(strlen(final));
               Serial.write(2); Serial.write(69); Serial.print(var_pass); Serial.write(3); Serial.write(crc16_low); Serial.write(crc16_high); Serial.write(4);
             }
-            //hay que probarlo!!
+            //checar hay que probarlo!!
             if(cbuff[1]==restchar){ //restart tcp-AT
               flagATZ = false;
               Serial.write("+++");  //openAt
             }
-            /*if(cbuff[1]==){ //cambia el valor de tcp(ip,gt,mk)por lo escrito en eeprom(disk2)
-              Debug4.println(F("Chg-TCP"));
-              strcmdcat(69,var_pass);
-              doCrc(strlen(final));
-              Serial.write(2); Serial.write(69); Serial.print(var_pass); Serial.write(3); Serial.write(crc16_low); Serial.write(crc16_high); Serial.write(4);
-            }*/
       //-------------------------------comandos para usuario---------------------------------------//
             if(cbuff[1]==runchar){  //run
               if(!flagload){Debug4.println(F("cargo"));clearProgram();loadProgram();}
