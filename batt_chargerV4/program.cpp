@@ -73,6 +73,7 @@ void Program::process_step()
       letter = "Ended";
       Ttime = 0;
       totAH = 0.0;
+      valAH = 0.0;
       control.stop();
       control.control_cbuff("E");
       Debug4.println(F("Step-End"));
@@ -84,7 +85,8 @@ void Program::process_step()
 
   if(control.states())
   {
-    this->state0 = 3;
+    //this->state0 = 3; //stop
+    this->state0 = 2; //pause
   }
 
   if(this->prevstate0!=3 && this->state0 == 3){
@@ -92,6 +94,7 @@ void Program::process_step()
     Ttime=0;
     count = 0;
     totAH = 0.0;
+    valAH = 0.0;
     letter = "Off";
   }
 

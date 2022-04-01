@@ -66,7 +66,7 @@ char final[lenbuff];
 char cbuff[lenbuff]; // Buffer
 unsigned char tmp_crc[lenbuff]={0};
 
-//----------------------------- Variables control prueba-------------------------
+//----------------------------- Variables control prueba -------------------------
 //char totalhms[9];// = "00:00:00"; //extern
 
 char var_current[5];
@@ -448,12 +448,14 @@ void comms_procesa_comando(void){
 
             if(cbuff[1]==writechar){  //writting eeprom Json
               Debug4.println(F("Write"));
-              if(n==0){
+              if((i2c_disk1.read(1050) == 0x46 || i2c_disk1.read(1050) == 0x54)&&(cbuff[10]==0x5B)&&(cbuff[11]=='1')&&(cbuff[12]==0x7B)){ // si es F o T pregunte por [1{ puede ser una opcion
                 i2c_disk1.write(1050,'F'); //bandera validar escritura eeprom
                 Debug4.println("UNICA VEZ");
+                n = 0;
+                x = 0;
               }
               //n++; //cuenta los bloques entrantes 17
-              if(cbuff[11]==0x5B){ //[ primer bloque 1 begin 10
+              if(cbuff[10]==0x5B){ //[ primer bloque 1 begin 10
                 n = 1;
                 Debug4.println(F("PrimerBloque"));
                 for(int i = 2;; i++){ //save name program 8 caracteres max
@@ -475,6 +477,7 @@ void comms_procesa_comando(void){
                     t = 0;
                   }
                 }
+
                 x++;
                 Debug4.println();
                 Debug4.println(F("writingEEPROM"));
@@ -484,23 +487,11 @@ void comms_procesa_comando(void){
                 strcmdcat(87,var_pass);
                 doCrc(strlen(final));//crc
                 Serial.write(2); Serial.write(writechar); Serial.print(var_pass); Serial.write(3); Serial.write(crc16_low); Serial.write(crc16_high); Serial.write(4);
-
-                //flagload = false;
-                /*if(len==save)
-                {
-                  clearProgram();
-                  jsonSave(tmp);
-                  //if (save == read){
-                  if(flagload){
-                    digitalWrite(LedComms, HIGH); Serial1.write(2); Serial1.print(myaddress); Serial1.write(writechar); Serial1.write("ACTION: PASS"); Serial1.write(3); Serial1.write(0); Serial1.write(0); Serial1.write(4); vTaskDelay(2); digitalWrite(LedComms, LOW);
-                  }
-                  else{
-                    digitalWrite(LedComms, HIGH); Serial1.write(2); Serial1.print(myaddress); Serial1.write(writechar); Serial1.write("ACTION: FAIL"); Serial1.write(3);Serial1.write(0); Serial1.write(0); Serial1.write(4);vTaskDelay(2); digitalWrite(LedComms, LOW);
-                  }
-                }*/
               }
               else if(cbuff[3]==0x7B){ //{ bloques con un digito 2-9
                 n++;
+                if(cbuff[2]=='2' && n==2){
+                }
                 Debug4.println(F("Bloque1Digito"));
                 for(int i = 3;; i++){
                   if(cbuff[i]==0x03)break;
@@ -534,20 +525,19 @@ void comms_procesa_comando(void){
                 Debug4.println(F("------------------"));
                 Debug4.println(x);
 
+                //if(cbuff[2]=='1' && cbuff[3]=='7')
+
                 strcmdcat(87,var_pass);
                 doCrc(strlen(final));//crc
                 Serial.write(2); Serial.write(writechar); Serial.print(var_pass); Serial.write(3); Serial.write(crc16_low); Serial.write(crc16_high); Serial.write(4);
               }
               Debug4.print("n: ");
               Debug4.println(n);
-
               //strcmdcat(87,var_pass);
               //doCrc(strlen(final));//crc
               //Serial.write(2); Serial.write(writechar); Serial.print(var_pass); Serial.write(3); Serial.write(crc16_low); Serial.write(crc16_high); Serial.write(4);
-
               if(n>=17){ n=0; x=0; i2c_disk1.write(1050,'T'); Debug4.println("TODO"); }
             }
-
       }
       comms_inicbuff(); // Borro buffer.
       //Debug4.println("Procesado"); // Monitorizo procesado.

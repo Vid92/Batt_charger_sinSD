@@ -7,8 +7,11 @@
 
 extern StopWatch controlTime;  // solo para mostrar valores
 extern bool flagStep;
-extern double valcurrent;
-extern double valvoltage;
+//extern double valcurrent;
+//extern double valvoltage;
+extern int valcurrent;
+extern int valvoltage;
+
 extern double valtemp;
 extern int const LedRelay;
 extern unsigned long Ttime;
@@ -25,22 +28,23 @@ class Control
   float maxTemp = 0.0;
   float minTemp = 0.0;
   float valAmpHour = 0.0;
+  float valAHact = 0.0;
 
   bool flagS = false;
-  bool flagO = false;
   bool flagTemp = false;
-  bool flagPause = false;
   bool flagEnable = false;
   bool flagP = false;
+
+  unsigned long time = 0;
+  unsigned long prevtime = 0;
 
   unsigned long timeout = 0;
   unsigned long steptime = 0;
   unsigned long Ttime0 = 0;
 
-  unsigned long time1 = 60000; //ms ->60seg-1min
-  unsigned long time2 = 90000; //1.5 min
-  unsigned long t1 = 0;
-  unsigned long t2 = 0;
+  //unsigned long time1 = 90000; //ms ->60seg-1min 60000 90000->1.5min
+  //unsigned long time2 = 90000; //120000; //2 min
+  //unsigned long t2 = 0;
   unsigned long timeAH = 0;
 
   int state = 0; // 1 = running, 2 = pause, 3 = stop
@@ -50,9 +54,12 @@ class Control
   long averageVoltage = 0;
   long averageTemp  = 0;
 
-  double tmpVal = 0.0;
-  double valcurrent0 = 0.0;
-  double valvoltage0 = 0.0;
+  int valcurrent0 = 0;
+  int valvoltage0 = 0;
+
+  //double valcurrent0 = 0.0;
+  //double valvoltage0 = 0.0;
+
   double valtemp0 = 0.0;
   double valAmpHour0 = 0.0;
 

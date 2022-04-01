@@ -19,19 +19,7 @@ char final_var[15]= "";
 char var_tmp[2];
 
 void eepromsave(unsigned int address, byte data){ //comparacion CR1 CR2 enviado
-  //save=0;
-  //Debug4.print(F("index: "));
-  //Debug4.println(index);
-  //Debug4.println(tmp);
-  //for(int i = 0; i<1024;i++){ //
-    //if(tmp[i]== 0xFF || tmp[i] == 0){
-    //  break;
-  //}
-    //EEPROM.write(i+1,tmp[i]);
   i2c_disk1.write(address,0);
-    //save++;
-    //writeEEPROM(disk1,i+10,tmp[i]); //0-10 prog.default
-  //}
 }
 
 void ipFileName(){
@@ -113,7 +101,7 @@ void jsonSave(char* temp){
   float totalAH = 0.0;
   float totalDuration = 0.0;
 
-  for(int x=1; x<6;x++){
+  for(int x=0; x<6;x++){
       memset(var_tmp,0,2);
       sprintf(var_tmp,"%c",temp[x]);
       strcat(nameProg,var_tmp);
@@ -282,21 +270,21 @@ void jsonSave(char* temp){
 void eepromread(){
   char eeprom[1024];
   memset(eeprom,0,sizeof(eeprom));
-  //read=0;
-  for(int i = 0;;i++){
-    int val = i2c_disk1.read(i);
-    if(val==0x5D)break;
-    /*if(val==0xFF||val== 0){
-      break;
-    }*/
-    //read++;
-    eeprom[i] = char(val);
-    Debug4.print(eeprom[i]);
-  }
-    Debug4.println();
-    jsonSave(eeprom);
-}
 
+  if(i2c_disk1.read(1050) == 0x54){ //Si es T = 0x54, lee programa. Programa no tiene problemas
+    for(int i = 0;;i++){
+      int val = i2c_disk1.read(i);
+      if(val==0x5D)break;
+      /*if(val==0xFF||val== 0){
+        break; }*/
+      //read++;
+      eeprom[i] = char(val);
+      Debug4.print(eeprom[i]);
+    }
+      Debug4.println();
+      jsonSave(eeprom);
+  }
+}
 
 void clearProgram(){
   for(int i=0; i< 17;i++){

@@ -43,10 +43,12 @@ unsigned long timeAc = 0;
 bool flageeprom=false;
 bool flagcommand=false;
 bool flagbuff=false;
-bool flagStep=false;
+bool flagStep=false;  //bandera indica cambio de paso
 
-double valcurrent = 0.0; //solo para mostrar
-double valvoltage = 0.0;
+int valcurrent = 0;
+int valvoltage = 0;
+//double valcurrent = 0.0; //solo para mostrar
+//double valvoltage = 0.0;
 double valtemp = 0.0;
 float valAH = 0.0;
 
@@ -204,7 +206,7 @@ void vCONTROLTask(void *pvParameters){
 void vUARTTask(void *pvParameters){
   (void) pvParameters;
   for (;;) {
-    if (flagcommand)comms_procesa_comando();
+    if (flagcommand){comms_procesa_comando();digitalWrite(LedComms, HIGH);}
     serialEvent();
     vTaskDelay(5);
   }
@@ -332,7 +334,6 @@ void serialEvent(){
   flagbuff = false;
   rcvchar=0x00;                // Inicializo carácter recibido
   if (Serial.available()) {
-        digitalWrite(LedComms, HIGH);
         rcvchar = Serial.peekLast();
         if(rcvchar == 0x6B){
           rcvchar=Serial.read();
